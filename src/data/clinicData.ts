@@ -34,7 +34,7 @@ export const CLINIC = {
   about:
     'Somos un centro de derivaciones quirúrgicas veterinarias, especializado en cuidados críticos. Operamos y acompañamos a perros y gatos que necesitan una cirugía o atención intensiva, con un equipo de profesionales dedicado a cada caso.',
   // Foto principal del inicio (ruta dentro de /public); null muestra una ilustración con huellitas.
-  photo: null as string | null,
+  photo: 'images/hero-cqv.jpg' as string | null,
   servicesSummary: 'cirugías, cuidados críticos e internación para perros y gatos',
   paymentMethods: [] as string[],
   hoursSummary: 'Todos los días de 9 a 22 hs',
@@ -143,15 +143,40 @@ export interface TeamMember {
   bio?: string;
   /** Verdadero para la tarjeta de pacientes: muestra varios cuadros de fotos en lugar de la tarjeta con nombre. */
   galeria?: boolean;
+  /** Verdadero para la tarjeta del equipo: muestra a todos los profesionales juntos. */
+  lista?: boolean;
 }
 
 // Fotos y videos de los pacientes (ruta dentro de /public; los .mp4 se muestran como un cuadro que se reproduce
 // solo, sin sonido y en bucle). Con menos de 4 elementos se completan 6 cuadros con espacios reservados.
-export const PACIENTES_FOTOS: string[] = [];
+export const PACIENTES_FOTOS: string[] = [
+  'images/paciente-1.jpg',
+  'images/paciente-2.jpg',
+  'images/paciente-3.jpg',
+  'images/paciente-4.jpg',
+  'images/paciente-5.jpg',
+];
 
-// Nosotros: el centro tiene varios doctores (Luis los pasa después: A CONFIRMAR) y una tarjeta de pacientes.
+export interface Profesional {
+  name: string;
+  /** Foto (ruta dentro de /public); null muestra un círculo con las iniciales. */
+  photo: string | null;
+}
+
+// Nombres que pasó Luis (A CONFIRMAR la ortografía de "Peyrelongue" y "Despuys"). Todavía no hay fotos individuales.
+export const PROFESIONALES: Profesional[] = [
+  { name: 'Ana María Ortegón', photo: null },
+  { name: 'Diego Peyrelongue', photo: null },
+  { name: 'Natalia Ramírez', photo: null },
+  { name: 'Nilsa Cejas', photo: null },
+  { name: 'Sofía Quintilli', photo: null },
+  { name: 'Gabriela Despuys', photo: null },
+  { name: 'Pablo Pinto', photo: null },
+];
+
+// Nosotros: una tarjeta con todo el equipo (varios profesionales) y una tarjeta de pacientes.
 export const TEAM: TeamMember[] = [
-  { role: 'Equipo quirúrgico', name: null, photo: null },
+  { role: 'Nuestro equipo', name: null, photo: null, lista: true },
   {
     role: 'Nuestros pacientes',
     name: null,

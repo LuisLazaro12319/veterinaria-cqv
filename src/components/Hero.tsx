@@ -93,7 +93,7 @@ export const Hero: React.FC = () => {
         <div className="relative lg:pl-6 max-sm:max-w-md max-sm:mx-auto max-sm:w-full">
           <div className="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-indigo-900/20 aspect-[4/5] bg-gradient-to-br from-indigo-300 via-indigo-200 to-sky-200">
             {foto ? (
-              <img src={foto} alt={`${CLINIC.name}, ${CLINIC.locality}`} className="w-full h-full object-cover" />
+              <img src={foto} alt={`${CLINIC.name}, ${CLINIC.locality}`} className="w-full h-full object-cover object-[50%_32%]" />
             ) : (
               <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center">
                 <PawPrint className="absolute top-[10%] left-[12%] w-14 h-14 text-white/40 -rotate-12" />

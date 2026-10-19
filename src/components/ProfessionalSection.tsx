@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, MapPin, PawPrint, UserRound } from 'lucide-react';
-import { CLINIC, PACIENTES_FOTOS, TEAM } from '../data/clinicData';
+import { CLINIC, PACIENTES_FOTOS, PROFESIONALES, TEAM } from '../data/clinicData';
 import { animarScroll, useArrastreMouse } from '../lib/carrusel';
 
 const rutaFoto = (foto: string | null) => (foto ? `${import.meta.env.BASE_URL}${foto}` : null);
@@ -56,6 +56,80 @@ export const ProfessionalSection: React.FC = () => {
             const foto = rutaFoto(m.photo);
             const principal = i === 0;
             const titulo = m.name ?? m.role;
+
+            /* Tarjeta del equipo: todos los profesionales juntos, con foto o con sus iniciales. */
+            if (m.lista) {
+              const iniciales = (nombre: string) =>
+                nombre
+                  .split(' ')
+                  .filter(Boolean)
+                  .map((p) => p[0])
+                  .slice(0, 2)
+                  .join('')
+                  .toUpperCase();
+              return (
+                <div
+                  key={m.role}
+                  className="basis-full w-full min-w-0 grow-0 shrink-0 snap-center px-4 sm:px-6 lg:px-8 py-10"
+                >
+                  <div className="max-w-4xl mx-auto text-center">
+                    <p className="mb-5">
+                      <span className="inline-block px-3.5 py-1.5 rounded-full bg-indigo-50 text-indigo-700 border border-sky-200 text-xs font-bold uppercase tracking-wider">
+                        {m.role}
+                      </span>
+                    </p>
+                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                      Un equipo dedicado a{' '}
+                      <span className="bg-gradient-to-r from-indigo-600 to-sky-500 bg-clip-text text-transparent">
+                        cada caso
+                      </span>
+                    </h3>
+                    <p className="text-lg text-slate-600 leading-relaxed mb-3 max-w-2xl mx-auto">{CLINIC.about}</p>
+                    <p className="text-lg text-slate-600 leading-relaxed mb-9 max-w-2xl mx-auto">
+                      Escribinos por WhatsApp para contarnos qué necesita tu mascota y coordinar tu turno.
+                    </p>
+                    <ul className="flex flex-wrap justify-center gap-x-4 gap-y-7 sm:gap-x-6 mb-9">
+                      {PROFESIONALES.map((p) => {
+                        const fotoP = rutaFoto(p.photo);
+                        return (
+                          <li key={p.name} className="w-[calc(50%-0.5rem)] sm:w-[calc(25%-1.15rem)] flex flex-col items-center">
+                            {fotoP ? (
+                              <img
+                                src={fotoP}
+                                alt={`${p.name}, ${CLINIC.name}`}
+                                loading="lazy"
+                                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover object-[50%_20%] shadow-lg shadow-indigo-900/15 ring-4 ring-white"
+                              />
+                            ) : (
+                              <div
+                                aria-hidden="true"
+                                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-indigo-500 to-sky-400 text-white text-3xl font-extrabold flex items-center justify-center shadow-lg shadow-indigo-900/15 ring-4 ring-white"
+                              >
+                                {iniciales(p.name)}
+                              </div>
+                            )}
+                            <span className="mt-3 text-base font-extrabold text-slate-900 leading-tight">{p.name}</span>
+                            <span className="text-xs font-semibold uppercase tracking-wider text-indigo-700 mt-1">
+                              Equipo veterinario
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    {TEAM.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => irA(1)}
+                        className="inline-flex items-center gap-1.5 px-5 py-3.5 text-sm font-bold text-indigo-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 rounded-xl transition-colors cursor-pointer"
+                      >
+                        <span>Mirá a nuestros pacientes</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            }
 
             /* Tarjeta de pacientes: varios cuadros para fotos de perros y gatos, sin tarjeta de nombre. */
             if (m.galeria) {
