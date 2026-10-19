@@ -108,7 +108,9 @@ export const ProfessionalSection: React.FC = () => {
                                 {iniciales(p.name)}
                               </div>
                             )}
-                            <span className="mt-3 text-base font-extrabold text-slate-900 leading-tight">{p.name}</span>
+                            <span className="mt-3 text-base font-extrabold text-slate-900 leading-tight">
+                              {p.titulo ? `${p.titulo} ${p.name}` : p.name}
+                            </span>
                             <span className="text-xs font-semibold uppercase tracking-wider text-indigo-700 mt-1">
                               Equipo veterinario
                             </span>

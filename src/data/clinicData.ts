@@ -159,19 +159,21 @@ export const PACIENTES_FOTOS: string[] = [
 
 export interface Profesional {
   name: string;
+  /** "Dr." o "Dra." (se escribe delante del nombre). Vacío si todavía no se sabe. */
+  titulo: 'Dr.' | 'Dra.' | '';
   /** Foto (ruta dentro de /public); null muestra un círculo con las iniciales. */
   photo: string | null;
 }
 
 // Nombres que pasó Luis (A CONFIRMAR la ortografía de "Peyrelongue" y "Despuys"). Todavía no hay fotos individuales.
 export const PROFESIONALES: Profesional[] = [
-  { name: 'Ana María Ortegón', photo: null },
-  { name: 'Diego Peyrelongue', photo: null },
-  { name: 'Natalia Ramírez', photo: null },
-  { name: 'Nilsa Cejas', photo: null },
-  { name: 'Sofía Quintilli', photo: null },
-  { name: 'Gabriela Despuys', photo: null },
-  { name: 'Pablo Pinto', photo: null },
+  { name: 'Ana María Ortegón', titulo: 'Dr.', photo: null },
+  { name: 'Diego Peyrelongue', titulo: 'Dr.', photo: null }, // una reseña de Google lo nombra "el Dr Diego"
+  { name: 'Natalia Ramírez', titulo: 'Dr.', photo: null },
+  { name: 'Nilsa Cejas', titulo: 'Dr.', photo: null },
+  { name: 'Sofía Quintilli', titulo: 'Dr.', photo: null },
+  { name: 'Gabriela Despuys', titulo: 'Dr.', photo: null },
+  { name: 'Pablo Pinto', titulo: 'Dr.', photo: null },
 ];
 
 // Nosotros: una tarjeta con todo el equipo (varios profesionales) y una tarjeta de pacientes.
