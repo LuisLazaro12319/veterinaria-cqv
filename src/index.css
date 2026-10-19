@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  /* El encabezado queda fijo arriba: así los títulos no se tapan al ir a una sección. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+/* Carrusel y cinta: sin barra de desplazamiento visible. */
+@layer base {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Insignias del inicio: flotan suavemente, como si levitaran. Se desactiva si la persona pidió menos movimiento. */
+@keyframes levitar {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.levitar {
+  animation: levitar 3.6s ease-in-out infinite;
+}
+.levitar-b {
+  animation: levitar 4.2s ease-in-out -1.6s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .levitar,
+  .levitar-b {
+    animation: none;
+  }
+}
