@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Camera, Check, ChevronLeft, ChevronRight, Clock, Copy, ExternalLink, MapPin, Navigation } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Clock, Copy, ExternalLink, MapPin, Navigation } from 'lucide-react';
 import { BRANCHES, CLINIC, SCHEDULE, getClinicStatus, horarioLineas, sedeTxt, whatsappUrl } from '../data/clinicData';
 import { WhatsAppIcon } from './BrandIcons';
 import { animarScroll, useArrastreMouse } from '../lib/carrusel';
@@ -123,47 +123,47 @@ export const LocationSection: React.FC = () => {
                     )}
                   </header>
 
-                  {/* Video o foto de la sucursal y mapa, lado a lado en pantallas grandes */}
+                  {/* Video o foto de la sucursal y mapa, lado a lado en pantallas grandes.
+                      Sin video ni foto no se reserva ningún espacio: el mapa ocupa todo el ancho. */}
                   <div
                     className={`grid grid-cols-1 gap-4 lg:gap-6 ${
-                      b.video ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : 'lg:grid-cols-2'
+                      b.video ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : foto ? 'lg:grid-cols-2' : ''
                     }`}
                   >
-                    <div
-                      className={`relative rounded-2xl overflow-hidden bg-indigo-50 ${
-                        b.video
-                          ? 'bg-black w-full max-w-[320px] mx-auto lg:max-w-none aspect-[9/16]'
-                          : 'h-56 sm:h-72 lg:h-[340px]'
-                      }`}
-                    >
-                      {b.video ? (
-                        <video
-                          src={`${import.meta.env.BASE_URL}${b.video}#t=3`}
-                          controls
-                          playsInline
-                          preload="metadata"
-                          aria-label={`Video: cómo llegar a ${CLINIC.name}`}
-                          className="w-full h-full object-contain bg-black"
-                        />
-                      ) : foto ? (
-                        <img
-                          src={foto}
-                          alt={`Sucursal ${b.zone} de ${CLINIC.name}, ${b.label}`}
-                          loading="lazy"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-indigo-50 to-sky-100 flex flex-col items-center justify-center gap-2 text-indigo-400">
-                          <div className="w-20 h-20 rounded-full border-2 border-dashed border-indigo-300 flex items-center justify-center">
-                            <Camera className="w-9 h-9" />
-                          </div>
-                          <span className="text-xs font-semibold">Foto de la sucursal</span>
-                        </div>
-                      )}
-                    </div>
+                    {(b.video || foto) && (
+                      <div
+                        className={`relative rounded-2xl overflow-hidden bg-indigo-50 ${
+                          b.video
+                            ? 'bg-black w-full max-w-[320px] mx-auto lg:max-w-none aspect-[9/16]'
+                            : 'h-56 sm:h-72 lg:h-[340px]'
+                        }`}
+                      >
+                        {b.video ? (
+                          <video
+                            src={`${import.meta.env.BASE_URL}${b.video}#t=3`}
+                            controls
+                            playsInline
+                            preload="metadata"
+                            aria-label={`Video: cómo llegar a ${CLINIC.name}`}
+                            className="w-full h-full object-contain bg-black"
+                          />
+                        ) : (
+                          <img
+                            src={foto ?? undefined}
+                            alt={`Sucursal ${b.zone} de ${CLINIC.name}, ${b.label}`}
+                            loading="lazy"
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                      </div>
+                    )}
                     <div
                       className={`relative rounded-2xl overflow-hidden border border-indigo-100 ${
-                        b.video ? 'h-72 lg:h-auto lg:min-h-[420px]' : 'h-72 lg:h-[340px]'
+                        b.video
+                          ? 'h-72 lg:h-auto lg:min-h-[420px]'
+                          : foto
+                            ? 'h-72 lg:h-[340px]'
+                            : 'h-72 sm:h-80 lg:h-[380px]'
                       }`}
                     >
                       <iframe
